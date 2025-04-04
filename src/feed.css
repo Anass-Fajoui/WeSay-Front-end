@@ -1,0 +1,108 @@
+*{
+    font-family: "Poppins";
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #eee;
+}
+.navbar{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* max-width: 600px; */
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    margin-inline: auto;
+    padding: 15px 30px 9px;
+    top: 0px;
+    /* margin-top: 10px; */
+    position: sticky;
+}
+.navbar img{ 
+    cursor: pointer;
+    width: 35px;
+}
+.navbar i{
+    color: black;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.navbar i:hover{
+    color: blue;
+    
+}
+.container{
+    max-width: 500px;
+    margin-inline: auto;
+}
+img{
+    cursor: pointer;
+    user-select: none;
+}
+.tweet-card{
+    background-color: white;
+    padding: 20px 20px;
+    margin: 20px;
+    border-radius: 10px;
+}
+.tweet-card .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.tweet-card .header .first{
+    display: flex;
+    align-items: center;
+}
+.tweet-card .header .text{
+    margin-left: 10px;
+    margin-top: -5px;
+}
+.tweet-card .header .text .user{
+    cursor: pointer;
+    font-size: 15px;
+    margin-bottom: -3px;
+}
+.tweet-card .header .text .username{
+    cursor: pointer;
+    font-size: 13px;
+    color: #7a7878;
+}
+.tweet-card .header .icons i{
+    margin: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.tweet-card .header .icons .fa-pen-to-square:hover{
+    color: green;
+}
+.tweet-card .header .icons .fa-trash:hover{
+    color: red;
+}
+.tweet-card .title{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.tweet-card .content{
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+.tweet-card .date{
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(133, 133, 133);
+}
+.tweet-card .end{
+    display: flex;
+    justify-content: space-between;
+}
+.tweet-card .end .like{
+    cursor: pointer;
+}
