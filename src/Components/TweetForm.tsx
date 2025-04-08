@@ -4,9 +4,11 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Tweet from "../types";
 import { useEffect } from "react";
+import authenticate from "../Service/authenticate"
 
 const TweetForm = ({ tweet }: { tweet: Tweet | null}) => {
     const navigate = useNavigate();
+    let token = authenticate();
 
     const {
         register,
@@ -29,6 +31,10 @@ const TweetForm = ({ tweet }: { tweet: Tweet | null}) => {
             axios.post("http://localhost:8080/api/tweets/add", {
                 title: data.title,
                 content: data.content,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
             .then((response) => {
                 navigate("/feed");
@@ -45,7 +51,11 @@ const TweetForm = ({ tweet }: { tweet: Tweet | null}) => {
             axios.put(`http://localhost:8080/api/tweet/${tweet?.id}`, {
                 title: data.title,
                 content: data.content,
-            })
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            }) 
             .then((response) => {
                 navigate("/feed");
                 Swal.fire({

@@ -25,15 +25,17 @@ body{
     cursor: pointer;
     width: 35px;
 }
-.navbar i{
+.navbar .fa-square-plus{
+    padding: 5px 8px;
+    border-radius: 10px;
     color: black;
     font-size: 30px;
     cursor: pointer;
     transition: 0.3s;
 }
 .navbar i:hover{
-    color: blue;
-    
+    color: #2096f2;
+    background-color: #E0F2F7;
 }
 .container{
     max-width: 500px;

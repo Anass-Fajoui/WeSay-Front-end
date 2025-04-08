@@ -1,19 +1,35 @@
 import { useEffect } from "react";
 import TweetForm from "../Components/TweetForm";
 import Tweet from "../types";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import authenticate from "../Service/authenticate";
+ 
 const EditTweetPage = () => {
+    let token = authenticate();
+    const navigate = useNavigate();
     const { id } = useParams();
     const [tweet, setTweet] = useState<Tweet |null>(null);
     
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/api/tweet/${id}`)
+            .get(`http://localhost:8080/api/tweet/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
             .then((response) => setTweet(response.data))
-            .catch((e) => console.log(e));
+            .catch((e) => {
+                const err = e as AxiosError;
+                if (e.response){
+                    if (e.response.status === 403){
+                        navigate("/login")
+                    }else{
+                        console.log(e);
+                    }
+                }
+            });
     }, []);
 
     return (

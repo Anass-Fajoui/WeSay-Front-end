@@ -2,17 +2,19 @@ import myAvatar from "../assets/maleUser.png";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import authenticate from "../Service/authenticate";
 
 interface Props {
     id: number;
     title: string;
-    content: string;
+    content: string; 
     likes: number;
     createdAt: Date;
     updateData: () => void;
 }
  
 const TweetCard = ({ id, title, content, likes, createdAt , updateData}: Props) => {
+    let token = authenticate();
     const navigate = useNavigate();
     let mydate = new Date(createdAt);
     const formattedDate = new Intl.DateTimeFormat("en-US", {
@@ -36,7 +38,11 @@ const TweetCard = ({ id, title, content, likes, createdAt , updateData}: Props) 
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .delete(`http://localhost:8080/api/tweet/${id}`)
+                    .delete(`http://localhost:8080/api/tweet/${id}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
                     .then((response) => {
                         Swal.fire({
                             title: "Deleted!",

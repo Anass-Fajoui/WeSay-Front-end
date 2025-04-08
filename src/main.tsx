@@ -11,11 +11,17 @@ import FeedPage from "./Pages/FeedPage.tsx";
 import ProfilePage from "./Pages/ProfilePage.tsx";
 import CreateTweetPage from "./Pages/CreateTweetPage.tsx";
 import EditTweetPage from "./Pages/EditTweetPage.tsx";
+import RegisterPage from "./Pages/RegisterPage.tsx";
+import LoginPage from "./Pages/LoginPage.tsx";
 
 const router = createBrowserRouter([
     {
-        path: "/",
-        element: <Navigate to="/feed" replace />,
+        path: "/register",
+        element: <RegisterPage/>,
+    },
+    {
+        path: "/login",
+        element: <LoginPage/>,
     },
     {
         path: "/feed",
