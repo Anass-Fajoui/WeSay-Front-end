@@ -99,7 +99,7 @@ const TweetCard = ({
             <div className="header">
                 <div
                     className="first"
-                    onClick={() => navigate(`/profile/${id}`)}
+                    onClick={() => navigate(`/profile/${writer.id}`)}
                 >
                     <img src={myAvatar} alt="avatar" width={30} />
 
