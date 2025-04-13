@@ -1,43 +1,131 @@
-import { useEffect } from "react";
 import TweetForm from "../Components/TweetForm";
-import Tweet from "../types";
-import axios, { AxiosError } from "axios";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import authenticate from "../Service/authenticate";
- 
+import { FieldValues, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { Tweet } from "../types";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+
 const EditTweetPage = () => {
-    let token = authenticate();
+    let [token, userId] = authenticate();
+    let [tweet, setTweet] = useState<Tweet>();
     const navigate = useNavigate();
-    const { id } = useParams();
-    const [tweet, setTweet] = useState<Tweet |null>(null);
-    
-    useEffect(() => {
-        axios
-            .get(`http://localhost:8080/api/tweet/${id}`, {
+    const { id: tweetId } = useParams();
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm({
+    });
+
+    async function getTweet() {
+        try {
+            let response = await axios.get(`http://localhost:8080/api/tweet/${tweetId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
-            })
-            .then((response) => setTweet(response.data))
-            .catch((e) => {
-                const err = e as AxiosError;
-                if (e.response){
-                    if (e.response.status === 403){
-                        navigate("/login")
-                    }else{
-                        console.log(e);
-                    }
-                }
             });
+            setTweet(response.data);
+        }catch (e){
+            console.log("error");
+        }  
+    }
+    useEffect(() => {
+        getTweet();
     }, []);
 
+    useEffect(() => {
+        if (tweet){
+            reset({
+                title : tweet.title,
+                content : tweet.content
+            })
+        }
+    }, [tweet, reset])
+
+    function onSubmit(data: FieldValues) {
+        axios
+            .put(
+                `http://localhost:8080/api/tweet/${tweet?.id}`,
+                {
+                    title: data.title,
+                    content: data.content,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            .then((response) => {
+                navigate("/feed");
+                Swal.fire({
+                    title: "Success",
+                    text: "Tweet Edited Successfully",
+                    icon: "success",
+                });
+            })
+            .catch((error) => {
+                window.alert("Unexpected Error occured");
+            });
+    }
     return (
         <>
             <div className="text-center text-3xl mb-4 mt-3 font-semibold">
                 Edit Your Tweet
             </div>
-            <TweetForm tweet={tweet}/>
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="p-4 border rounded shadow-sm bg-light mx-auto mt-4"
+                style={{ maxWidth: "600px" }}
+            >
+                <div className="mb-3">
+                    <input
+                        id="title"
+                        className={`form-control ${
+                            errors.title ? "is-invalid" : ""
+                        }`}
+                        placeholder="Title"
+                        {...register("title", {
+                            required: "Title is required",
+                        })}
+                    />
+                    {errors.title?.message &&
+                        typeof errors.title.message === "string" && (
+                            <div className="invalid-feedback">
+                                {errors.title.message}
+                            </div>
+                        )}
+                </div>
+                <br />
+                <div className="mb-3">
+                    <textarea
+                        rows={4}
+                        id="content"
+                        className={`form-control ${
+                            errors.content ? "is-invalid" : ""
+                        }`}
+                        placeholder="Content"
+                        {...register("content", {
+                            required: "Content is required",
+                        })}
+                    />
+                    {errors.content?.message &&
+                        typeof errors.content.message === "string" && (
+                            <div className="invalid-feedback">
+                                {errors.content.message}
+                            </div>
+                        )}
+                </div>
+
+                <button type="submit" className="btn btn-primary">
+                    Submit
+                </button>
+            </form>
         </>
     );
 };

@@ -18,6 +18,7 @@ const LoginPage = () => {
                 email : data.email,
                 password: data.password
             })
+            console.log("heyyyy login success")
             let token = response.data.token;
             window.localStorage.setItem("token", token);
             

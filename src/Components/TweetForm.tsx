@@ -2,13 +2,13 @@ import { FieldValues, useForm } from "react-hook-form";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import Tweet from "../types";
+import {Tweet} from "../types";
 import { useEffect } from "react";
 import authenticate from "../Service/authenticate"
 
 const TweetForm = ({ tweet }: { tweet: Tweet | null}) => {
     const navigate = useNavigate();
-    let token = authenticate();
+    let [token, userId] = authenticate();
 
     const {
         register,

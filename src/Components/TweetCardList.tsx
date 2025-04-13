@@ -1,6 +1,6 @@
 import TweetCard from "./TweetCard";
 
-import Tweet from "../types"
+import {Tweet} from "../types"
 
 const TweetCardList = ({ tweetList, updateData }: { tweetList: Tweet[], updateData : () => void }) => {
     return (

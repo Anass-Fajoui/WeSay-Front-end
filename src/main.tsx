@@ -16,6 +16,10 @@ import LoginPage from "./Pages/LoginPage.tsx";
 
 const router = createBrowserRouter([
     {
+        path: "/",
+        element: <FeedPage />
+    },
+    {
         path: "/register",
         element: <RegisterPage/>,
     },
