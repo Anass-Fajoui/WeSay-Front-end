@@ -2,9 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router";
 
 const ProfileMenu = () => {
+    const userId = window.localStorage.getItem("userId");
     const navigate = useNavigate();
     function goToProfile() {
-        navigate(`/myprofile`);
+        navigate(`/profile/${userId}`);
     }
     function Logout() {
         navigate("/login");

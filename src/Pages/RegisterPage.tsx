@@ -4,7 +4,6 @@ import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 export default function RegisterPage() {
-
     const [usernameError, setUserNameError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const navigate = useNavigate();
@@ -30,32 +29,36 @@ export default function RegisterPage() {
             window.localStorage.setItem("token", token);
             navigate("/feed");
         } catch (e) {
-            interface MyResponse{
-                emailError: boolean,
-                usernameError: boolean 
+            interface MyResponse {
+                emailError: boolean;
+                usernameError: boolean;
             }
             const err = e as AxiosError<MyResponse>;
-            if (err.response){
+            if (err.response) {
                 let data = err.response.data;
-                setEmailError(data.emailError);
-                setUserNameError(data.usernameError);
-                if (!data.emailError && !data.usernameError){
+                if (typeof data.emailError === "boolean") {
+                    setEmailError(data.emailError);
+                }
+                if (typeof data.usernameError === "boolean") {
+                    setUserNameError(data.usernameError);
+                }
+                if (!data.emailError && !data.usernameError) {
                     window.alert("Unexpected Error");
                 }
+            } else {
+                window.alert("Unexpected Error");
             }
         }
     }
 
     return (
         <div className="flex min-h-screen">
-           
             <div className="w-1/2 bg-[#1DA1F2] flex items-center justify-center">
                 <h1 className="text-white text-4xl font-bold">
                     Join Us Today!
                 </h1>
             </div>
 
-            
             <div className="w-1/2 flex items-center justify-center p-8 bg-white">
                 <div className="max-w-md w-full">
                     <h3 className="text-3xl font-bold mb-6 text-center mb-4">
@@ -81,7 +84,9 @@ export default function RegisterPage() {
                                 {errors.firstName &&
                                     typeof errors.firstName.message ===
                                         "string" && (
-                                        <div className="text-red-500 text-sm mt-1">{errors.firstName.message}</div>
+                                        <div className="text-red-500 text-sm mt-1">
+                                            {errors.firstName.message}
+                                        </div>
                                     )}
                             </div>
                             <div className="w-1/2">
@@ -98,7 +103,9 @@ export default function RegisterPage() {
                                 {errors.lastName &&
                                     typeof errors.lastName.message ===
                                         "string" && (
-                                        <div className="text-red-500 text-sm mt-1">{errors.lastName.message}</div>
+                                        <div className="text-red-500 text-sm mt-1">
+                                            {errors.lastName.message}
+                                        </div>
                                     )}
                             </div>
                         </div>
@@ -115,11 +122,15 @@ export default function RegisterPage() {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                             {usernameError ? (
-                                <div className="text-red-500 text-sm mt-1">Username already in use</div>
+                                <div className="text-red-500 text-sm mt-1">
+                                    Username already in use
+                                </div>
                             ) : (
                                 errors.username &&
                                 typeof errors.username.message === "string" && (
-                                    <div className="text-red-500 text-sm mt-1">{errors.username.message}</div>
+                                    <div className="text-red-500 text-sm mt-1">
+                                        {errors.username.message}
+                                    </div>
                                 )
                             )}
                         </div>
@@ -136,11 +147,15 @@ export default function RegisterPage() {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                             {emailError ? (
-                                <div className="text-red-500 text-sm mt-1">Email already in use</div>
+                                <div className="text-red-500 text-sm mt-1">
+                                    Email already in use
+                                </div>
                             ) : (
                                 errors.email &&
                                 typeof errors.email.message === "string" && (
-                                    <div className="text-red-500 text-sm mt-1">{errors.email.message}</div>
+                                    <div className="text-red-500 text-sm mt-1">
+                                        {errors.email.message}
+                                    </div>
                                 )
                             )}
                         </div>
@@ -158,7 +173,9 @@ export default function RegisterPage() {
                             />
                             {errors.password &&
                                 typeof errors.password.message === "string" && (
-                                    <div className="text-red-500 text-sm mt-1">{errors.password.message}</div>
+                                    <div className="text-red-500 text-sm mt-1">
+                                        {errors.password.message}
+                                    </div>
                                 )}
                         </div>
                         <br />
