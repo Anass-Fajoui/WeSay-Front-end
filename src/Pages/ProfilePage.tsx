@@ -1,12 +1,16 @@
-import authenticate from "../Service/authenticate"
+import authenticate from "../Service/authenticate";
 import { useParams } from "react-router-dom";
+import NavBar from "../Components/NavBar";
 
 const ProfilePage = () => {
-  let [token, userId] = authenticate();
-  let {id} = useParams();
-  return (
-    <div>Profile Page {id}</div>
-  )
-}
+    let [token, userId] = authenticate();
+    let { id } = useParams();
+    return (
+        <>
+            <NavBar />
+            <div>Profile Page {id}</div>
+        </>
+    );
+};
 
-export default ProfilePage 
+export default ProfilePage;

@@ -13,6 +13,8 @@ import CreateTweetPage from "./Pages/CreateTweetPage.tsx";
 import EditTweetPage from "./Pages/EditTweetPage.tsx";
 import RegisterPage from "./Pages/RegisterPage.tsx";
 import LoginPage from "./Pages/LoginPage.tsx";
+import MyProfile from "./Pages/MyProfile.tsx";
+import EditInfo from "./Pages/EditInfo.tsx";
 
 const router = createBrowserRouter([
     {
@@ -40,8 +42,16 @@ const router = createBrowserRouter([
       element: <EditTweetPage />
     },
     {
+        path: "/myprofile",
+        element: <MyProfile />
+    },
+    {
       path: "/profile/:id",
       element: <ProfilePage />,
+    },
+    {
+        path: "/editInfo",
+        element: <EditInfo/>
     }
 ]);
 
