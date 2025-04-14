@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 
 const LoginPage = () => {
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(false); 
     const navigate = useNavigate();
     const {
         register,
@@ -18,7 +18,6 @@ const LoginPage = () => {
                 email : data.email,
                 password: data.password
             })
-            console.log("heyyyy login success")
             let token = response.data.token;
             window.localStorage.setItem("token", token);
             

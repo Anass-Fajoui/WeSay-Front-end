@@ -25,7 +25,7 @@ body{
     cursor: pointer;
     width: 35px;
 }
-.navbar .fa-square-plus{
+.navbar .fa-square-plus, .addNewTweet .fa-square-plus{
     padding: 5px 8px;
     border-radius: 10px;
     color: black;
@@ -33,7 +33,7 @@ body{
     cursor: pointer;
     transition: 0.3s;
 }
-.navbar i:hover{
+.navbar i:hover, .addNewTweet i:hover{
     color: #2096f2;
     background-color: #E0F2F7;
 }

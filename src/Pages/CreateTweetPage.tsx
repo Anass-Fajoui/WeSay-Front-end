@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Tweet } from "../types";
+import NavBar from "../Components/NavBar";
 
 const CreateTweetPage = () => {
     let [token, userId] = authenticate();
@@ -39,6 +40,7 @@ const CreateTweetPage = () => {
         }
     return (
         <>
+            <NavBar />
             <div className="text-center text-3xl mb-4 mt-3 font-semibold">
                 Create A New Tweet
             </div>

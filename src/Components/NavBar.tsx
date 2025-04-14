@@ -12,7 +12,7 @@ const NavBar = () => {
       setIsProfileMenu((value) => !value);
     }
     return (
-        <div className="navbar">
+        <div className="navbar"> 
             <Link
                 to="/feed"
                 className="logo flex items-center justify-center"
@@ -23,17 +23,6 @@ const NavBar = () => {
                     Tweetle
                 </div>
             </Link>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <Link to="/create">
-                <i className="fa-solid fa-square-plus  "></i>
-            </Link>
-            <div></div>
-            <div></div>
 
             <div onClick={showProfileMenu}>
                 {isProfileMenu && <ProfileMenu />}

@@ -13,7 +13,7 @@ import TweetCard from "../Components/TweetCard";
 const MyProfile = () => {
     const navigate = useNavigate();
     let [token, userId] = authenticate();
-    let {id} = useParams();
+    let { id } = useParams();
     let [user, setUser] = useState<User>();
     let [tweets, setTweets] = useState<Tweet[]>([]);
     let [Loading, setLoading] = useState<Boolean>();
@@ -65,11 +65,34 @@ const MyProfile = () => {
         <>
             <NavBar />
             <div className="container">
+                {(id == userId) && (<div className="flex justify-between m-3">
+                    <div
+                        className="p-2 px-3 bg-white rounded-4xl flex-grow cursor-pointer mx-2
+                                    hover:bg-gray-50
+                                    transition-all duration-200
+                                    hover:shadow-[0_0_8px_rgba(0,0,0,0.1)]"
+                        onClick={() => navigate("/create")}
+                    >
+                        What's on your mind ?
+                    </div>
+                    <div
+                        onClick={() => navigate("/create")}
+                        className="addNewTweet"
+                    >
+                        <i className="fa-solid fa-square-plus"></i>
+                    </div>
+                </div>)}
                 {Loading && <Spinner />}
-                {tweets.map((tweet) => (id == userId ? 
-                    <EditableTweetCard {...tweet} updateData={getMyTweets} />:
-                    <TweetCard {...tweet} updateData={getMyTweets} />
-                ))}
+                {tweets.map((tweet) =>
+                    id == userId ? (
+                        <EditableTweetCard
+                            {...tweet}
+                            updateData={getMyTweets}
+                        />
+                    ) : (
+                        <TweetCard {...tweet} updateData={getMyTweets} />
+                    )
+                )}
                 {tweets.length === 0 && !Loading && (
                     <div className="mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md text-center mt-4 p-3">
                         <h4 className="text-xl font-semibold text-gray-800 mb-2">

@@ -8,6 +8,7 @@ import { Tweet } from "../types";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import NavBar from "../Components/NavBar";
 
 const EditTweetPage = () => {
     let [token, userId] = authenticate();
@@ -75,6 +76,7 @@ const EditTweetPage = () => {
     }
     return (
         <>
+            <NavBar />
             <div className="text-center text-3xl mb-4 mt-3 font-semibold">
                 Edit Your Tweet
             </div>
