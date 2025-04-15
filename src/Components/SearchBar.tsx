@@ -65,9 +65,7 @@ const SearchBar = () => {
         }
     }
     useEffect(() => {
-        
         debounceUpdateUsers(searchTerm);
-        
 
         return () => debounceUpdateUsers.cancel();
     }, [searchTerm, debounceUpdateUsers]);
@@ -94,7 +92,7 @@ const SearchBar = () => {
             {!hidden && (
                 <div
                     className="absolute left-0 top-full mt-1 w-48 bg-white rounded-2xl shadow-lg 
-                               z-50 w-full"
+                               z-50 w-full max-h-[300px] overflow-y-auto"
                     ref={dropdownRef}
                 >
                     {users.map((user) => (
@@ -106,7 +104,7 @@ const SearchBar = () => {
                             {user.firstName + " " + user.lastName}
                         </div>
                     ))}
-                    {!searchTerm && users.length === 0 &&(
+                    {!searchTerm && users.length === 0 && (
                         <div
                             className="rounded-2xl block px-4 py-3 cursor-pointer text-gray-700 
                                         hover:bg-gray-50 transition-colors decoration-0 text-center"
@@ -122,6 +120,7 @@ const SearchBar = () => {
                             No users Found
                         </div>
                     )}
+                    
                 </div>
             )}
         </div>

@@ -7,11 +7,7 @@ import ProfileMenu from "./ProfileMenu";
 import SearchBar from "./SearchBar";
 
 const NavBar = () => {
-    let navigate = useNavigate();
-    let [isProfileMenu, setIsProfileMenu] = useState(false);
-    function showProfileMenu() {
-        setIsProfileMenu((value) => !value);
-    }
+    
     return ( 
         <div className="navbar">
             <Link
@@ -27,12 +23,7 @@ const NavBar = () => {
             <SearchBar></SearchBar>
             <div></div>
             <div></div>
-            <div onClick={showProfileMenu}>
-                {isProfileMenu && <ProfileMenu />}
-                <div className="rounded-full p-2 hover:bg-gray-50 transition">
-                    <img src={myAvatar} alt="avatar" width={30} />
-                </div>
-            </div>
+            <ProfileMenu />
         </div>
     );
 };
