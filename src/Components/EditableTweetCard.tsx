@@ -1,6 +1,7 @@
 import myAvatar from "../assets/maleUser.png";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import authenticate from "../Service/authenticate";
 import { Tweet, User } from "../types";
@@ -33,7 +34,7 @@ const EditableTweetCard = ({
     const formattedDate = new Intl.DateTimeFormat("en-US", {
         hour: "numeric",
         minute: "2-digit",
-        hour12: true, 
+        hour12: true,
         day: "2-digit",
         month: "short",
         year: "numeric",
@@ -52,7 +53,14 @@ const EditableTweetCard = ({
             console.log(tweetArr);
             setLiked(tweetArr.includes(id));
         } catch (e) {
-            console.log(e);
+            const err = e as AxiosError;
+            if (err.response) {
+                if (err.response.status === 403) {
+                    navigate("/login");
+                } else {
+                    console.log(e);
+                }
+            }
         }
     }
     useEffect(() => {
@@ -74,7 +82,15 @@ const EditableTweetCard = ({
                 setLikes(response.data);
                 setLiked(false);
             } catch (e) {
-                window.alert("Unexpected Error occurred");
+                const err = e as AxiosError;
+                if (err.response) {
+                    if (err.response.status === 403) {
+                        navigate("/login");
+                    } else {
+                        window.alert("Unexpected Error occurred");
+                        console.log(e);
+                    }
+                }
             }
         } else {
             try {
@@ -90,41 +106,61 @@ const EditableTweetCard = ({
                 setLikes(response.data);
                 setLiked(true);
             } catch (e) {
-                window.alert("Unexpected Error occurred");
+                const err = e as AxiosError;
+                if (err.response) {
+                    if (err.response.status === 403) {
+                        navigate("/login");
+                    } else {
+                        window.alert("Unexpected Error occurred");
+                    }
+                }
             }
         }
     }
 
-    function deleteTweet() {
-        Swal.fire({
+    async function deleteTweet() {
+        const result = await Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
-            // icon: "warning",
+            icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axios
-                    .delete(`http://localhost:8080/api/tweet/${id}`, {
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const response = await axios.delete(
+                    `http://localhost:8080/api/tweet/${id}`,
+                    {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
-                    })
-                    .then((response) => {
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your tweet has been deleted.",
-                            icon: "success",
-                            confirmButtonColor: '#3b82f6',
-                        });
-                        updateData();
-                    })
-                    .catch((error) => console.log(error));
+                    }
+                );
+
+                await Swal.fire({
+                    title: "Deleted!",
+                    text: "Your tweet has been deleted.",
+                    icon: "success",
+                    confirmButtonColor: "#3b82f6",
+                });
+
+                updateData();
+            } catch (e) {
+                const err = e as AxiosError;
+                if (err.response) {
+                    if (err.response.status === 403) {
+                        navigate("/login");
+                    } else {
+                        window.alert("Unexpected Error occurred");
+                    }
+                }
             }
-        });
+        }
     }
+
     function editTweet() {
         navigate(`/edit/${id}`);
     }

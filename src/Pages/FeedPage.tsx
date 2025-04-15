@@ -30,9 +30,11 @@ function FeedPage() {
             if (err.response) {
                 if (err.response.status === 403) {
                     navigate("/login");
-                } else{
-                    console.log(e)
+                } else {
+                    window.alert("Unexpected Error Occured");
                 }
+            } else {
+                window.alert("Unexpected Error Occured");
             }
         } finally {
             setLoading(false);

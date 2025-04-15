@@ -33,7 +33,16 @@ const EditInfo = () => {
             });
             setUser(response.data);
         } catch (e) {
-            window.alert("Unexpected Error");
+            const err = e as AxiosError;
+            if (err.response) {
+                if (err.response.status === 403) {
+                    navigate("/login");
+                } else {
+                    window.alert("Unexpected Error occurred");
+                }
+            } else {
+                window.alert("Unexpected Error occurred");
+            }
         }
     }
 
@@ -73,7 +82,7 @@ const EditInfo = () => {
                 title: "Success",
                 text: "User Info Updated Successfully",
                 icon: "success",
-                confirmButtonColor: '#3b82f6'
+                confirmButtonColor: "#3b82f6",
             });
         } catch (e) {
             interface MyResponse {
@@ -83,6 +92,10 @@ const EditInfo = () => {
             const err = e as AxiosError<MyResponse>;
             if (err.response) {
                 let data = err.response.data;
+                if (err.response.status === 403) {
+                    navigate("/login");
+                    return;
+                }
                 if (typeof data.emailError === "boolean") {
                     setEmailError(data.emailError);
                 }

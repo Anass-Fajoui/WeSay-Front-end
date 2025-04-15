@@ -3,6 +3,7 @@ import authenticate from "../Service/authenticate";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AxiosError } from "axios";
 import Swal from "sweetalert2";
 import { Tweet } from "../types";
 import NavBar from "../Components/NavBar";
@@ -18,27 +19,41 @@ const CreateTweetPage = () => {
     } = useForm();
 
     function onSubmit(data: FieldValues) {
-            axios.post("http://localhost:8080/api/tweets/add", {
-                title: data.title,
-                content: data.content,
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
+        axios
+            .post(
+                "http://localhost:8080/api/tweets/add",
+                {
+                    title: data.title,
+                    content: data.content,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
-            })
+            )
             .then(() => {
                 navigate(-1);
                 Swal.fire({
                     title: "Success",
                     text: "Tweet Created Successfully",
                     icon: "success",
-                    confirmButtonColor: '#3b82f6'
+                    confirmButtonColor: "#3b82f6",
                 });
             })
-            .catch((error) => {
-                window.alert("Unexpected error ocurred")
+            .catch((e) => {
+                const err = e as AxiosError;
+                if (err.response) {
+                    if (err.response.status === 403) {
+                        navigate("/login");
+                    } else {
+                        window.alert("Unexpected Error occurred");
+                    }
+                } else {
+                    window.alert("Unexpected Error occurred");
+                }
             });
-        }
+    }
     return (
         <>
             <NavBar />

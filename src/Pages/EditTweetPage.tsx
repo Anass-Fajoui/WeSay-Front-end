@@ -3,6 +3,7 @@ import authenticate from "../Service/authenticate";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AxiosError } from "axios";
 import Swal from "sweetalert2";
 import { Tweet } from "../types";
 import { useEffect } from "react";
@@ -20,33 +21,44 @@ const EditTweetPage = () => {
         handleSubmit,
         reset,
         formState: { errors },
-    } = useForm({
-    });
+    } = useForm({});
 
     async function getTweet() {
         try {
-            let response = await axios.get(`http://localhost:8080/api/tweet/${tweetId}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
+            let response = await axios.get(
+                `http://localhost:8080/api/tweet/${tweetId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
-            });
+            );
             setTweet(response.data);
-        }catch (e){
-            console.log("error");
-        }  
+        } catch (e) {
+            const err = e as AxiosError;
+            if (err.response) {
+                if (err.response.status === 403) {
+                    navigate("/login");
+                } else {
+                    window.alert("Unexpected Error occurred");
+                }
+            }else{
+                window.alert("Unexpected Error occurred");
+            }
+        }
     }
     useEffect(() => {
         getTweet();
     }, []);
 
     useEffect(() => {
-        if (tweet){
+        if (tweet) {
             reset({
-                title : tweet.title,
-                content : tweet.content
-            })
+                title: tweet.title,
+                content: tweet.content,
+            });
         }
-    }, [tweet, reset])
+    }, [tweet, reset]);
 
     function onSubmit(data: FieldValues) {
         axios
@@ -68,11 +80,18 @@ const EditTweetPage = () => {
                     title: "Success",
                     text: "Tweet Edited Successfully",
                     icon: "success",
-                    confirmButtonColor: '#3b82f6'
+                    confirmButtonColor: "#3b82f6",
                 });
             })
-            .catch((error) => {
-                window.alert("Unexpected Error occured");
+            .catch((e) => {
+                const err = e as AxiosError;
+                if (err.response) {
+                    if (err.response.status === 403) {
+                        navigate("/login");
+                    } else {
+                        window.alert("Unexpected Error occurred");
+                    }
+                }
             });
     }
     return (
