@@ -63,7 +63,7 @@ const EditTweetPage = () => {
                 }
             )
             .then((response) => {
-                navigate("/feed");
+                navigate(-1);
                 Swal.fire({
                     title: "Success",
                     text: "Tweet Edited Successfully",

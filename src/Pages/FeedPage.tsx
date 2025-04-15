@@ -30,6 +30,8 @@ function FeedPage() {
             if (err.response) {
                 if (err.response.status === 403) {
                     navigate("/login");
+                } else{
+                    console.log(e)
                 }
             }
         } finally {

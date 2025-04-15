@@ -4,6 +4,7 @@ import chat from "../assets/chat1.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ProfileMenu from "./ProfileMenu";
+import SearchBar from "./SearchBar";
 
 const NavBar = () => {
     let navigate = useNavigate();
@@ -23,7 +24,9 @@ const NavBar = () => {
                     Tweetle
                 </div>
             </Link>
-
+            <SearchBar></SearchBar>
+            <div></div>
+            <div></div>
             <div onClick={showProfileMenu}>
                 {isProfileMenu && <ProfileMenu />}
                 <div className="rounded-full p-2 hover:bg-gray-50 transition">

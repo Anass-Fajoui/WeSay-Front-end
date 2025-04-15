@@ -141,7 +141,7 @@ const EditableTweetCard = ({
                         <div className="user">
                             {writer.firstName} {writer.lastName}
                         </div>
-                        <div className="username">{writer.userName}</div>
+                        <div className="username">@{writer.userName}</div>
                     </div>
                 </div>
                 <div className="icons">

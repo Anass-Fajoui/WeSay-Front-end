@@ -27,7 +27,7 @@ const CreateTweetPage = () => {
                 }
             })
             .then(() => {
-                navigate("/feed");
+                navigate(-1);
                 Swal.fire({
                     title: "Success",
                     text: "Tweet Created Successfully",
