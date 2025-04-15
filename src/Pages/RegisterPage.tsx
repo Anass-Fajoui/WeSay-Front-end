@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { PasswordField } from "../Components/PasswordField";
 
 export default function RegisterPage() {
     const [usernameError, setUserNameError] = useState(false);
@@ -158,19 +159,13 @@ export default function RegisterPage() {
                                     </div>
                                 )
                             )}
-                        </div>
+                        </div> 
 
                         <div>
                             <label className="block mb-1 font-medium">
                                 Password
                             </label>
-                            <input
-                                {...register("password", {
-                                    required: "Must enter password",
-                                })}
-                                type="password"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
+                            <PasswordField register={register}/>
                             {errors.password &&
                                 typeof errors.password.message === "string" && (
                                     <div className="text-red-500 text-sm mt-1">

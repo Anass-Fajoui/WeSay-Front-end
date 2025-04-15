@@ -32,6 +32,7 @@ const CreateTweetPage = () => {
                     title: "Success",
                     text: "Tweet Created Successfully",
                     icon: "success",
+                    confirmButtonColor: '#3b82f6'
                 });
             })
             .catch((error) => {

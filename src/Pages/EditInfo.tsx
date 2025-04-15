@@ -6,12 +6,16 @@ import { AxiosError } from "axios";
 import authenticate from "../Service/authenticate";
 import { User } from "../types";
 import Swal from "sweetalert2";
+import { PasswordField } from "../Components/PasswordField";
+import { useNavigate } from "react-router";
 
 const EditInfo = () => {
     let [token, userId] = authenticate();
     let [user, setUser] = useState<User>();
     let [usernameError, setUserNameError] = useState<Boolean>(false);
     let [emailError, setEmailError] = useState<Boolean>(false);
+
+    const navigate = useNavigate();
 
     const {
         register,
@@ -69,6 +73,7 @@ const EditInfo = () => {
                 title: "Success",
                 text: "User Info Updated Successfully",
                 icon: "success",
+                confirmButtonColor: '#3b82f6'
             });
         } catch (e) {
             interface MyResponse {
@@ -94,15 +99,29 @@ const EditInfo = () => {
     }
 
     function deleteUser() {
-        try {
-            axios.delete("http://localhost:8080/api/myuser", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-        } catch (e) {
-            window.alert("Unexpected Error");
-        }
+        Swal.fire({
+            title: "Are you sure ?",
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete my account",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    axios.delete("http://localhost:8080/api/myuser", {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                    navigate("/login");
+                    window.localStorage.setItem("token", "");
+                    window.localStorage.setItem("userId", "");
+                } catch (e) {
+                    window.alert("Unexpected Error");
+                }
+            }
+        });
     }
 
     return (
@@ -212,13 +231,7 @@ const EditInfo = () => {
                                 <label className="mb-1 block text-sm font-medium text-gray-700">
                                     Password
                                 </label>
-                                <input
-                                    {...register("password", {
-                                        required: "Password is required",
-                                    })}
-                                    type="password"
-                                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
+                                <PasswordField register={register} />
                                 {errors.password &&
                                     typeof errors.password.message ===
                                         "string" && (

@@ -9,6 +9,7 @@ import Spinner from "../Components/Spinner";
 import EditableTweetCard from "../Components/EditableTweetCard";
 import myAvatar from "../assets/maleUser.png";
 import TweetCard from "../Components/TweetCard";
+import ProfileHeader from "../Components/ProfileHeader";
 
 const MyProfile = () => {
     const navigate = useNavigate();
@@ -63,7 +64,7 @@ const MyProfile = () => {
 
     return (
         <>
-            <NavBar />
+            <ProfileHeader name={user?.firstName + " " + user?.lastName} username={user?.userName}/>
             <div className="container">
                 {(id == userId) && (<div className="flex justify-between m-3">
                     <div

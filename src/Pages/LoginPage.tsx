@@ -2,9 +2,10 @@ import { FieldValues, useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { PasswordField } from "../Components/PasswordField";
 
 const LoginPage = () => {
-    const [error, setError] = useState(false); 
+    const [error, setError] = useState(false);
     const navigate = useNavigate();
     const {
         register,
@@ -14,22 +15,24 @@ const LoginPage = () => {
 
     async function login(data: FieldValues) {
         try {
-            let response = await axios.post("http://localhost:8080/api/auth/authenticate", {
-                email : data.email,
-                password: data.password
-            })
+            let response = await axios.post(
+                "http://localhost:8080/api/auth/authenticate",
+                {
+                    email: data.email,
+                    password: data.password,
+                }
+            );
             let token = response.data.token;
             window.localStorage.setItem("token", token);
-            
-            navigate("/feed")
-        } catch (e){
+
+            navigate("/feed");
+        } catch (e) {
             const err = e as AxiosError;
-            if (err.response){
-                if (err.response.data === "Invalid Email or Password"){
+            if (err.response) {
+                if (err.response.data === "Invalid Email or Password") {
                     setError(true);
-                }
-                else{
-                    window.alert("Unexpected error occured")
+                } else {
+                    window.alert("Unexpected error occured");
                 }
             }
         }
@@ -66,13 +69,7 @@ const LoginPage = () => {
                             <label className="block mb-1 font-medium">
                                 Password
                             </label>
-                            <input
-                                {...register("password", {
-                                    required: "Must enter password",
-                                })}
-                                type="password"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
+                            <PasswordField register={register}/>
                             {errors.password &&
                                 typeof errors.password.message === "string" && (
                                     <div className="text-red-500 text-sm mt-1">
@@ -80,8 +77,12 @@ const LoginPage = () => {
                                     </div>
                                 )}
                         </div>
-                        {error && <p className="text-red-500 text-sm mt-2 mb-0">Invalid Email or Password</p>}
-                        
+                        {error && (
+                            <p className="text-red-500 text-sm mt-2 mb-0">
+                                Invalid Email or Password
+                            </p>
+                        )}
+
                         <button
                             type="submit"
                             className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition mt-3"

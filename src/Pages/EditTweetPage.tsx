@@ -68,6 +68,7 @@ const EditTweetPage = () => {
                     title: "Success",
                     text: "Tweet Edited Successfully",
                     icon: "success",
+                    confirmButtonColor: '#3b82f6'
                 });
             })
             .catch((error) => {

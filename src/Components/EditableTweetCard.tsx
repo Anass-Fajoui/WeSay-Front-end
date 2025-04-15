@@ -33,7 +33,7 @@ const EditableTweetCard = ({
     const formattedDate = new Intl.DateTimeFormat("en-US", {
         hour: "numeric",
         minute: "2-digit",
-        hour12: true,
+        hour12: true, 
         day: "2-digit",
         month: "short",
         year: "numeric",
@@ -117,6 +117,7 @@ const EditableTweetCard = ({
                             title: "Deleted!",
                             text: "Your tweet has been deleted.",
                             icon: "success",
+                            confirmButtonColor: '#3b82f6',
                         });
                         updateData();
                     })

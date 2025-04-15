@@ -8,11 +8,11 @@ import ProfileMenu from "./ProfileMenu";
 const NavBar = () => {
     let navigate = useNavigate();
     let [isProfileMenu, setIsProfileMenu] = useState(false);
-    function showProfileMenu(){
-      setIsProfileMenu((value) => !value);
+    function showProfileMenu() {
+        setIsProfileMenu((value) => !value);
     }
-    return (
-        <div className="navbar"> 
+    return ( 
+        <div className="navbar">
             <Link
                 to="/feed"
                 className="logo flex items-center justify-center"
@@ -26,7 +26,9 @@ const NavBar = () => {
 
             <div onClick={showProfileMenu}>
                 {isProfileMenu && <ProfileMenu />}
-                <img src={myAvatar} alt="avatar" width={30} />
+                <div className="rounded-full p-2 hover:bg-gray-50 transition">
+                    <img src={myAvatar} alt="avatar" width={30} />
+                </div>
             </div>
         </div>
     );
