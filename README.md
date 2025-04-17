@@ -21,22 +21,42 @@ WeSay allows users to share short posts (tweets), like them, browse other users�
 ## 🖼️ Screenshots
 
 ### 🔐 Authentication Pages
-<div style="display: flex; flex-wrap: wrap;align-items:flex-start; gap: 10px;">
+<div style="display: flex; flex-wrap: wrap;align-items:flex-start; gap: 30px;">
   <img src="./Screenshots/register.png" alt="Screenshot 1" width="400">
   <img src="./Screenshots/login.png" alt="Screenshot 1" width="400">
 </div>
 
 ### 🏠 Feed Page
-![Feed Screenshot](./screenshots/feed.png)
+
+<div style="display: flex; flex-wrap: wrap;align-items:flex-start; gap: 10px;">
+  <img src="./Screenshots/feed.png" alt="Screenshot 1" width="400">
+</div>
 
 ### 📝 Tweet Creation / Edit
-![Tweet Screenshot](./screenshots/tweet.png)
+
+<div style="display: flex; flex-wrap: wrap;align-items:flex-start; gap: 30px;">
+  <img src="./Screenshots/createTweet.png" alt="Screenshot 1" width="400">
+  <img src="./Screenshots/updateTweet.png" alt="Screenshot 1" width="400">
+</div>
 
 ### 👤 My Profile
-![Profile Screenshot](./screenshots/profile.png)
+
+<div style="display: flex; flex-wrap: wrap;align-items:flex-start; gap: 10px;">
+  <img src="./Screenshots/visitMyProfile.png" alt="Screenshot 1" width="400">
+</div>
+
+### 👤 Edit My Profile Info
+
+<div style="display: flex; flex-wrap: wrap;align-items:flex-start; gap: 10px;">
+  <img src="./Screenshots/editProfile.png" alt="Screenshot 1" width="400">
+</div>
+
 
 ### 👤 Other User Profile
-![Profile Screenshot](./screenshots/profile.png)
+
+<div style="display: flex; flex-wrap: wrap;align-items:flex-start; gap: 10px;">
+  <img src="./Screenshots/visitProfile.png" alt="Screenshot 1" width="400">
+</div>
 
 
 ---
