@@ -28,7 +28,7 @@ const ProfileHeader = ({
                     >
                         <img src={chat} alt="" width={30} />
                         <div className="p-2 text-white font-bold no-underline text-xl">
-                            Tweetle
+                            WeSay
                         </div>
                     </Link>
                     <ProfileMenu />

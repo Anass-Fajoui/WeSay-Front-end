@@ -7,8 +7,7 @@ import ProfileMenu from "./ProfileMenu";
 import SearchBar from "./SearchBar";
 
 const NavBar = () => {
-    
-    return ( 
+    return (
         <div className="navbar">
             <Link
                 to="/feed"
@@ -17,7 +16,7 @@ const NavBar = () => {
             >
                 <img src={chat} alt="" />
                 <div className="p-2 text-black font-bold no-underline text-xl">
-                    Tweetle
+                    WeSay
                 </div>
             </Link>
             <SearchBar></SearchBar>
