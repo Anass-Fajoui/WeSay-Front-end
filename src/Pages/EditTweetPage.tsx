@@ -42,7 +42,7 @@ const EditTweetPage = () => {
                 } else {
                     window.alert("Unexpected Error occurred");
                 }
-            }else{
+            } else {
                 window.alert("Unexpected Error occurred");
             }
         }
@@ -97,57 +97,84 @@ const EditTweetPage = () => {
     return (
         <>
             <NavBar />
-            <div className="text-center text-3xl mb-4 mt-3 font-semibold">
-                Edit Your Tweet
-            </div>
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="p-4 border rounded shadow-sm bg-light mx-auto mt-4"
-                style={{ maxWidth: "600px" }}
-            >
-                <div className="mb-3">
-                    <input
-                        id="title"
-                        className={`form-control ${
-                            errors.title ? "is-invalid" : ""
-                        }`}
-                        placeholder="Title"
-                        {...register("title", {
-                            required: "Title is required",
-                        })}
-                    />
-                    {errors.title?.message &&
-                        typeof errors.title.message === "string" && (
-                            <div className="invalid-feedback">
-                                {errors.title.message}
+            <div className="p-4">
+                <div className="flex items-start justify-center mb-3">
+                    <div className="w-full max-w-xl rounded-xl bg-white shadow-md px-4 py-3">
+                        <h3 className="mb-6 text-center text-2xl font-bold text-gray-800">
+                            Edit a Tweet
+                        </h3>
+                        <form
+                            onSubmit={handleSubmit(onSubmit)}
+                            className="space-y-4"
+                        >
+                            <div className="mb-2">
+                                <label
+                                    htmlFor="title"
+                                    className="mb-1 block text-md font-medium text-gray-700"
+                                >
+                                    Title
+                                </label>
+                                <input
+                                    id="title"
+                                    {...register("title", {
+                                        required: "Title is required",
+                                    })}
+                                    type="text"
+                                    placeholder="What's this tweet about?"
+                                    className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                                        errors.title
+                                            ? "border-red-500"
+                                            : "border-gray-300"
+                                    }`}
+                                />
+                                {errors.title?.message &&
+                                    typeof errors.title.message ===
+                                        "string" && (
+                                        <div className="text-red-500 text-sm mt-1">
+                                            {errors.title.message}
+                                        </div>
+                                    )}
                             </div>
-                        )}
-                </div>
-                <br />
-                <div className="mb-3">
-                    <textarea
-                        rows={4}
-                        id="content"
-                        className={`form-control ${
-                            errors.content ? "is-invalid" : ""
-                        }`}
-                        placeholder="Content"
-                        {...register("content", {
-                            required: "Content is required",
-                        })}
-                    />
-                    {errors.content?.message &&
-                        typeof errors.content.message === "string" && (
-                            <div className="invalid-feedback">
-                                {errors.content.message}
-                            </div>
-                        )}
-                </div>
 
-                <button type="submit" className="btn btn-primary">
-                    Submit
-                </button>
-            </form>
+                            <div className="mb-2">
+                                <label
+                                    htmlFor="content"
+                                    className="mb-1 block text-md font-medium text-gray-700"
+                                >
+                                    Content
+                                </label>
+                                <textarea
+                                    id="content"
+                                    rows={4}
+                                    {...register("content", {
+                                        required: "Content is required",
+                                    })}
+                                    className={`w-full resize-none rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                                        errors.content
+                                            ? "border-red-500"
+                                            : "border-gray-300"
+                                    }`}
+                                    placeholder="What's happening?"
+                                />
+                                {errors.content?.message &&
+                                    typeof errors.content.message ===
+                                        "string" && (
+                                        <div className="text-red-500 text-sm">
+                                            {errors.content.message}
+                                        </div>
+                                    )}
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="w-full rounded bg-blue-600 py-2 px-4 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-2"
+                            >
+                                Update Tweet
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };
