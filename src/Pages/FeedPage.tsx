@@ -66,7 +66,7 @@ function FeedPage() {
                 </div>
                 {Loading && <Spinner />}
                 {tweets.map((tweet) => (
-                    <TweetCard {...tweet} updateData={updateData} />
+                    <TweetCard {...tweet} />
                 ))}
                 {tweets.length === 0 && !Loading && (
                     <div className="mx-auto mt-10 p-6 bg-white rounded-2xl shadow-md text-center mt-4 p-3">

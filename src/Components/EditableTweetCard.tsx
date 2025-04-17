@@ -14,7 +14,7 @@ interface Props {
     likes: number;
     createdAt: Date;
     writer: User;
-    updateData: () => void;
+    onDelete: () => void;
 }
 
 const EditableTweetCard = ({
@@ -24,7 +24,7 @@ const EditableTweetCard = ({
     likes,
     createdAt,
     writer,
-    updateData,
+    onDelete,
 }: Props) => {
     let [token, userId] = authenticate();
     let [liked, setLiked] = useState<Boolean>(false);
@@ -39,33 +39,6 @@ const EditableTweetCard = ({
         month: "short",
         year: "numeric",
     }).format(mydate);
-    async function checkIfLiked() {
-        try {
-            let response = await axios.get(
-                "http://localhost:8080/api/tweetsliked",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            let tweetArr = response.data;
-            console.log(tweetArr);
-            setLiked(tweetArr.includes(id));
-        } catch (e) {
-            const err = e as AxiosError;
-            if (err.response) {
-                if (err.response.status === 403) {
-                    navigate("/login");
-                } else {
-                    console.log(e);
-                }
-            }
-        }
-    }
-    useEffect(() => {
-        checkIfLiked();
-    }, []);
 
     async function LikeOrUnlike() {
         if (liked) {
@@ -90,6 +63,9 @@ const EditableTweetCard = ({
                         window.alert("Unexpected Error occurred");
                         console.log(e);
                     }
+                } else {
+                    window.alert("Unexpected Error occurred");
+                    console.log(e);
                 }
             }
         } else {
@@ -113,49 +89,9 @@ const EditableTweetCard = ({
                     } else {
                         window.alert("Unexpected Error occurred");
                     }
-                }
-            }
-        }
-    }
-
-    async function deleteTweet() {
-        const result = await Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
-        });
-
-        if (result.isConfirmed) {
-            try {
-                const response = await axios.delete(
-                    `http://localhost:8080/api/tweet/${id}`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
-
-                await Swal.fire({
-                    title: "Deleted!",
-                    text: "Your tweet has been deleted.",
-                    icon: "success",
-                    confirmButtonColor: "#3b82f6",
-                });
-
-                updateData();
-            } catch (e) {
-                const err = e as AxiosError;
-                if (err.response) {
-                    if (err.response.status === 403) {
-                        navigate("/login");
-                    } else {
-                        window.alert("Unexpected Error occurred");
-                    }
+                } else {
+                    window.alert("Unexpected Error occurred");
+                    console.log(e);
                 }
             }
         }
@@ -164,6 +100,34 @@ const EditableTweetCard = ({
     function editTweet() {
         navigate(`/edit/${id}`);
     }
+
+    axios
+        .get("http://localhost:8080/api/tweetsliked", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((response) => {
+            let tweetArr = response.data;
+            // console.log(tweetArr)
+            setLiked(tweetArr.includes(id));
+        })
+        .catch((e) => {
+            const err = e as AxiosError;
+            if (err.response) {
+                if (err.response.status === 403) {
+                    navigate("/login");
+                } else {
+                    console.log(e);
+                }
+            }
+        });
+    console.log(`tweet is ${id} rendered, likes = ${likes}`);
+
+    useEffect(() => {
+        setLikes(likes);
+    }, [likes]);
+
     return (
         <div className="tweet-card">
             <div className="header">
@@ -185,7 +149,7 @@ const EditableTweetCard = ({
                         className="fa-solid fa-pen-to-square"
                         onClick={editTweet}
                     ></i>
-                    <i className="fa-solid fa-trash" onClick={deleteTweet}></i>
+                    <i className="fa-solid fa-trash" onClick={onDelete}></i>
                 </div>
             </div>
             <div className="title">{title}</div>

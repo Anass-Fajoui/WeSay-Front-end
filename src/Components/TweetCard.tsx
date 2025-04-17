@@ -13,7 +13,6 @@ interface Props {
     likes: number;
     createdAt: Date;
     writer: User;
-    updateData: () => void;
 }
 
 const TweetCard = ({
@@ -22,8 +21,7 @@ const TweetCard = ({
     content,
     likes,
     createdAt,
-    writer,
-    updateData,
+    writer
 }: Props) => {
     let [token, userId] = authenticate();
     let [liked, setLiked] = useState<Boolean>(false);
@@ -49,7 +47,7 @@ const TweetCard = ({
                 }
             );
             let tweetArr = response.data;
-            console.log(tweetArr);
+            // console.log(tweetArr);
             setLiked(tweetArr.includes(id))
         } catch (e) {
             console.log(e);
@@ -96,7 +94,7 @@ const TweetCard = ({
     }
     return (
         <div className="tweet-card">
-            <div className="header">
+            <div className="header"> 
                 <div
                     className="first"
                     onClick={() => navigate(`/profile/${writer.id}`)}

@@ -7,7 +7,7 @@ const ProfileMenu = () => {
     const navigate = useNavigate();
     const [isProfileMenu, setIsProfileMenu] = useState(false);
 
-    const dropdownRef = useRef<HTMLDivElement>(null); // Ref for dropdown
+    const dropdownRef = useRef<HTMLDivElement>(null); 
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -37,7 +37,7 @@ const ProfileMenu = () => {
         navigate("/editInfo");
     }
     return (
-        <div>
+        <div className="relative">
             <div className="rounded-full p-2 hover:bg-gray-50 transition" onClick={() => setIsProfileMenu(!isProfileMenu)}>
                 <img src={myAvatar} alt="avatar" width={30} />
             </div>

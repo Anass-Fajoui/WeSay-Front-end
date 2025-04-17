@@ -1,7 +1,7 @@
 import myAvatar from "../assets/maleUser.png";
 import { useNavigate, Link } from "react-router";
 import chat from "../assets/chatWhite.png";
-import whiteAvatar from "../assets/whiteUser.png"
+import whiteAvatar from "../assets/whiteUser.png";
 import { useState } from "react";
 import ProfileMenu from "./ProfileMenu";
 
@@ -13,10 +13,10 @@ const ProfileHeader = ({
     username: string | undefined;
 }) => {
     const navigate = useNavigate();
-    let [isProfileMenu, setIsProfileMenu] = useState(false);
-        function showProfileMenu() {
-            setIsProfileMenu(!isProfileMenu);
-        }
+    // let [isProfileMenu, setIsProfileMenu] = useState(false);
+    // function showProfileMenu() {
+    //     setIsProfileMenu(!isProfileMenu);
+    // }
     return (
         <>
             <div className="profile-header mb-4">
@@ -31,12 +31,7 @@ const ProfileHeader = ({
                             Tweetle
                         </div>
                     </Link>
-                    <div onClick={showProfileMenu} className="relative">
-                        {isProfileMenu && <ProfileMenu />}
-                        <div className="rounded-full p-2 hover:bg-gray-300 transition">
-                            <img src={whiteAvatar} alt="avatar" width={30} />
-                        </div>
-                    </div>
+                    <ProfileMenu />
                 </div>
                 <div className="container">
                     <div className="flex ">
