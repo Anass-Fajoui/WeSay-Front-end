@@ -1,54 +1,59 @@
-# React + TypeScript + Vite
+[The Front end Repository](https://github.com/Anass-Fajoui/WeSay-Front-end)
+# WeSay 🐦
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple Twitter clone web application built with Spring Boot and a modern frontend stack.  
+WeSay allows users to share short posts (tweets), like them, browse other users’ profiles, and manage their accounts.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🔐 User Authentication (Register / Login / Logout)
+- 📝 Create, update, and delete tweets
+- 🧵 View all tweets in a shared public feed
+- ❤️ Like tweets
+- 🔍 Search for users
+- 👤 View other users' profiles with their tweet history
+- ⚙️ Edit or delete your own account
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🖼️ Screenshots
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+> 📌 Replace the placeholders below with actual screenshots from your project
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🏠 Home / Feed Page
+![Feed Screenshot](./screenshots/feed.png)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 📝 Tweet Creation / Edit
+![Tweet Screenshot](./screenshots/tweet.png)
+
+### 👤 User Profile
+![Profile Screenshot](./screenshots/profile.png)
+
+### 🔐 Authentication Pages
+![Auth Screenshot](./screenshots/auth.png)
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**  
+- HTML, CSS  
+- Tailwind CSS  
+- TypeScript  
+- React (optional if used)
+
+**Backend**  
+- Java  
+- Spring Boot  
+- RESTful API
+
+---
+
+## 📦 Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/Anass-Fajoui/WeSay.git
+cd WeSay
