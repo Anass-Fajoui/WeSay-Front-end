@@ -20,8 +20,6 @@ WeSay allows users to share short posts (tweets), like them, browse other users�
 
 ## 🖼️ Screenshots
 
-> 📌 Replace the placeholders below with actual screenshots from your project
-
 ### 🏠 Home / Feed Page
 ![Feed Screenshot](./screenshots/feed.png)
 
