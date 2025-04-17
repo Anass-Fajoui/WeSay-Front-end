@@ -21,8 +21,8 @@ WeSay allows users to share short posts (tweets), like them, browse other users�
 ## 🖼️ Screenshots
 
 ### 🔐 Authentication Pages
-![register Screenshot](/Screenshots/register)
-![login Screenshot](/Screenshots/login)
+![register Screenshot](./Screenshots/register)
+![login Screenshot](./Screenshots/login)
 
 ### 🏠 Feed Page
 ![Feed Screenshot](./screenshots/feed.png)
